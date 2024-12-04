@@ -13,12 +13,12 @@ This project implements a probabilistic mapping system for an ESP32-based roboti
 
 ## Software Components
 
-### ESP32 Firmware (`paste.txt`)
+### ESP32 Firmware
 - Implements Wi-Fi access point functionality
 - Provides motor control interfaces
 - Handles sensor readings and command processing
 
-### Python Mapping Client (`paste-2.txt`)
+### Python Mapping Client
 - Interactive mapping application
 - Real-time grid visualization
 - Probabilistic environment mapping
