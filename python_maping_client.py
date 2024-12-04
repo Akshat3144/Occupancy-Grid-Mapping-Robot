@@ -183,8 +183,6 @@ class RobotMapper:
                 self.update_robot_marker()
                 print("Position updated successfully!")
                 
-                # Record grid state
-                self.grid_states.append(self.grid.copy())
                 self.t += 1  # Increment time index
             else:
                 print("Invalid input!")
@@ -276,7 +274,6 @@ class RobotMapper:
                     self.process_distance(distance_cm)
                 elif approve == 'n':
                     print("Measurement not approved. Try again!")
-                    return
                 else:
                     print("Invalid input. Measurement not approved.")
             else:
@@ -292,7 +289,12 @@ class RobotMapper:
         print("\nGrid States:")
         for t, grid_state in enumerate(self.grid_states):
             print(f"\nTime {t}:")
-            print(np.array2string(log_odds_to_probability(grid_state), formatter={'float_kind':lambda x: f"{x:.2f}"}))
+            print("Grid State (Probabilities):")
+            print(np.array2string(log_odds_to_probability(grid_state), formatter={'float_kind':lambda 
+            x: f"{x:.2f}"}))
+            print("Grid State (Log Odds):")
+            print(np.array2string(grid_state, formatter={'float_kind':lambda 
+            x: f"{x:.2f}"}))
             print(f"Orientation: {self.orientation}")
 
     def print_final_probabilities(self):
@@ -300,8 +302,10 @@ class RobotMapper:
         for i in range(self.grid_size):
             for j in range(self.grid_size):
                 cell_num = i * self.grid_size + j + 1
+                log_probability = self.grid[i, j]
                 probability = log_odds_to_probability(self.grid[i, j])
-                print(f"Cell {cell_num}: {probability:.4f}")
+                print(f"P(Cell) {cell_num}: {probability:.4f}")
+                print(f"LP(Cell) {cell_num}: {log_probability:.4f}")
 
     def run(self):
         while True:
